@@ -3,6 +3,13 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+
+#Specify the files you don't want to include in git here
+*.sln
+*.vcxproj
+
+
+
 # User-specific files
 *.rsuser
 *.suo
@@ -396,3 +403,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+
+
+

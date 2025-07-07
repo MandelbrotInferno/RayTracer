@@ -4,6 +4,11 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 
+
+#Specify additional folder or files to ignore here
+TestImages/
+
+
 #Specify the files you don't want to include in git here
 *.sln
 *.vcxproj

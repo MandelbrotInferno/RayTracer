@@ -9,6 +9,7 @@ project "RayTracer"
 
 
 	vpaths {
+		["deps/**"] = {"dependencies/**.h", "dependencies/**.hpp", "dependencies/**.c", "dependencies/**.cpp"},
         ["src/**"] = { "src/**.cpp" },
         ["include/**"] = { "include/**.h", "include/**.hpp" },
     }
@@ -16,12 +17,15 @@ project "RayTracer"
 	files{"include/**.hpp", 
 		  "include/**.h",
 		  "src/**.c",
-		  "src/**.cpp"}
+		  "src/**.cpp",
+		  "dependencies/glm/**.h",
+		  "dependencies/glm/**.hpp",
+		  }
 		  
 	targetdir "x64/%{cfg.buildcfg}"
 	objdir ("bin-intermediate/%{cfg.buildcfg}")
 	includedirs{"include/"}
-	libdirs{}
+	libdirs{"dependencies/glm/"}
 	links{}
 	
 	postbuildcommands {}

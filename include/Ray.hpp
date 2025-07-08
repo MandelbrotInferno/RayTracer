@@ -6,11 +6,11 @@
 
 namespace RayTracer
 {
-	struct RayTracer final
+	struct Ray final
 	{
 
-		RayTracer(const glm::vec3& l_origin, const glm::vec3& l_dir);
-
+		Ray(const glm::vec3& l_origin, const glm::vec3& l_dir);
+		Ray() = default;
 
 		glm::vec3 At(const float l_t) const;
 

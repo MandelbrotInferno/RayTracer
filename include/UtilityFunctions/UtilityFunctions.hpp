@@ -5,11 +5,14 @@
 #include <glm/glm.hpp>
 #include <span>
 #include <ostream>
-#include "Ray.hpp"
+
 
 
 namespace RayTracer
 {
+	struct Ray;
+	struct Sphere;
+
 	namespace UtilityFunctions
 	{
 		using ColorRGB = glm::ivec3;
@@ -20,5 +23,7 @@ namespace RayTracer
 		ColorRGB GenerateColorBasedOnRay(const RayTracer::Ray& l_ray);
 
 		void WriteColorToOutputStream(std::ostream& l_cout, const std::span<ColorRGB> l_finalColors, const uint32_t l_width, const uint32_t l_height);
+
+		bool IntersectionTestSphereAndRay(const Ray& l_ray, const Sphere& l_sphere);
 	}
 }

@@ -3,6 +3,7 @@
 #include "UtilityFunctions/UtilityFunctions.hpp"
 #include "Ray.hpp"
 #include "Sphere.hpp"
+#include <limits>
 
 
 namespace RayTracer
@@ -27,7 +28,7 @@ namespace RayTracer
 			l_cout << std::flush;
 		}
 
-		bool IntersectionTestSphereAndRay(const Ray& l_ray, const Sphere& l_sphere)
+		float ClosestIntersectionPointSphereRay(const Ray& l_ray, const Sphere& l_sphere)
 		{
 			const glm::vec3 lv_diffOrigins = l_sphere.m_origin - l_ray.m_origin;
 			
@@ -38,7 +39,7 @@ namespace RayTracer
 			const float lv_discriminant = lv_b * lv_b - 4.f * lv_a * lv_c;
 
 			if (lv_discriminant < 0.f) {
-				return false;
+				return std::numeric_limits<float>::infinity();
 			}
 			else {
 				const float lv_sqrtDiscriminant = std::sqrtf(lv_discriminant);
@@ -46,17 +47,27 @@ namespace RayTracer
 				const float lv_t2 = (-lv_b - lv_sqrtDiscriminant) / (2 * lv_a);
 
 				if (lv_t1 > 0.f || lv_t2 > 0.f) {
-					return true;
+					float lv_t = std::min(lv_t1, lv_t2);
+					if (lv_t <= 0.f) {
+						return std::max(lv_t1, lv_t2);
+					}
+					else {
+						return lv_t;
+					}
 				}
 				else {
-					return false;
+					return std::numeric_limits<float>::infinity();
 				}
 			}
 		}
 
 
-		ColorRGB GenerateColorBasedOnRay(const RayTracer::Ray& l_ray)
+		ColorRGB GenerateColorBasedOnRay(const RayTracer::Ray& l_ray, const Sphere& l_sphere)
 		{
+			if (true == ClosestIntersectionPointSphereRay(l_ray, l_sphere)) {
+				return ColorRGB(255, 0, 0);
+			}
+
 			glm::vec3 lv_unitRayDirection = glm::normalize(l_ray.m_direction);
 			float lv_blendValue = 0.5f * (lv_unitRayDirection.y + 1.f);
 			auto lv_resultf = (1.f - lv_blendValue) * glm::vec3(1.f, 1.f, 1.f) + lv_blendValue * glm::vec3(0.5f, 0.7f, 1.f);
